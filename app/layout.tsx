@@ -36,7 +36,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-screen bg-dot-grid">
+      <body className="min-h-screen bg-dot-grid" suppressHydrationWarning>
         <ScrollProgress />
         {children}
         <FloatingWhatsApp />
