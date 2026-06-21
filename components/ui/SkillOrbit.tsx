@@ -16,29 +16,30 @@ interface SkillOrbitProps {
   centerContent?: React.ReactNode;
 }
 
+function getRadius(w: number): number {
+  if (w < 480) return 140;
+  if (w < 640) return 180;
+  if (w < 768) return 240;
+  if (w < 1024) return 300;
+  if (w < 1280) return 340;
+  return 360;
+}
+
 export default function SkillOrbit({
   items,
-  radius = 160,
+  radius: baseRadius = 360,
   speed = 1,
   className = "",
   centerContent,
 }: SkillOrbitProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
+  const [radius, setRadius] = useState(getRadius(typeof window !== "undefined" ? window.innerWidth : 1024));
 
   useEffect(() => {
-    const updateScale = () => {
-      const w = window.innerWidth;
-      if (w < 480) setScale(0.35);
-      else if (w < 640) setScale(0.45);
-      else if (w < 768) setScale(0.6);
-      else if (w < 1024) setScale(0.75);
-      else if (w < 1280) setScale(0.9);
-      else setScale(1);
-    };
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    return () => window.removeEventListener("resize", updateScale);
+    const update = () => setRadius(getRadius(window.innerWidth));
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
   }, []);
 
   const orbits = useMemo(() => {
@@ -77,15 +78,13 @@ export default function SkillOrbit({
   }, [orbits, speed]);
 
   return (
-    <div className="flex items-center justify-center w-full overflow-hidden py-8">
+    <div className="flex items-center justify-center w-full">
       <div
         ref={containerRef}
         className={`relative flex items-center justify-center ${className}`}
         style={{
           width: radius * 2.4,
           height: radius * 2.4,
-          transform: `scale(${scale})`,
-          transformOrigin: "center center",
         }}
       >
         {[...Array(3)].map((_, i) => (
