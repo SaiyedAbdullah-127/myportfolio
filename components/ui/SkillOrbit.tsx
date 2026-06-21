@@ -29,10 +29,11 @@ export default function SkillOrbit({
   useEffect(() => {
     const updateScale = () => {
       const w = window.innerWidth;
-      if (w < 480) setScale(0.45);
-      else if (w < 640) setScale(0.55);
-      else if (w < 768) setScale(0.7);
-      else if (w < 1024) setScale(0.85);
+      if (w < 480) setScale(0.35);
+      else if (w < 640) setScale(0.45);
+      else if (w < 768) setScale(0.6);
+      else if (w < 1024) setScale(0.75);
+      else if (w < 1280) setScale(0.9);
       else setScale(1);
     };
     updateScale();

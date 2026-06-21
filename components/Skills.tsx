@@ -148,7 +148,7 @@ export default function Skills() {
             <div className="flex flex-col items-center w-full overflow-visible px-4">
               <SkillOrbit
                 items={orbitTech}
-                radius={260}
+                radius={360}
                 speed={0.8}
                 centerContent={
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full glass-strong border border-emerald-500/20 flex items-center justify-center">
