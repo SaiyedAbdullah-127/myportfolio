@@ -14,10 +14,15 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [lastScroll, setLastScroll] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 60);
+      const cur = window.scrollY;
+      setScrolled(cur > 60);
+      setHidden(cur > lastScroll && cur > 120);
+      setLastScroll(cur);
 
       const sections = navItems.map((item) => item.href.slice(1));
       for (const id of sections.reverse()) {
@@ -28,13 +33,15 @@ export default function Navbar() {
         }
       }
     };
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [lastScroll]);
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        hidden ? "-translate-y-full" : "translate-y-0"
+      } ${
         scrolled
           ? "glass-strong shadow-[0_4px_30px_rgba(0,0,0,0.3)] py-3"
           : "bg-transparent py-5"

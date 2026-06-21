@@ -316,6 +316,37 @@ body {
   box-shadow: 0 0 10px rgba(5, 150, 105, 0.5);
 }
 
+/* ───── Hide scrollbar for carousel ───── */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ───── Floating dock icon animation ───── */
+@keyframes dock-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.dock-active {
+  animation: dock-bounce 0.4s ease-in-out;
+}
+
+/* ───── Floating 3D card ───── */
+@keyframes float-3d {
+  0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+  25% { transform: translateY(-8px) rotateX(2deg) rotateY(-3deg); }
+  50% { transform: translateY(-4px) rotateX(-1deg) rotateY(2deg); }
+  75% { transform: translateY(-10px) rotateX(1deg) rotateY(-1deg); }
+}
+
+.animate-float-3d {
+  animation: float-3d 6s ease-in-out infinite;
+}
+
 /* ───── Misc ───── */
 html {
   scroll-behavior: smooth;

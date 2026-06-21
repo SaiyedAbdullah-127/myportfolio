@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import SkillOrbit from "./ui/SkillOrbit";
+import ScrollAnimations from "./ui/ScrollAnimations";
+import SpotlightEffect from "./effects/SpotlightEffect";
 
 const skills = [
   {
@@ -39,11 +42,17 @@ const skills = [
   },
 ];
 
-const accentMap: Record<string, string> = {
-  emerald: "before:from-emerald-500 before:via-teal-500 before:to-emerald-500",
-  teal: "before:from-teal-500 before:via-cyan-500 before:to-teal-500",
-  violet: "before:from-violet-500 before:via-emerald-500 before:to-violet-500",
-};
+const orbitTech: { label: string; color: string }[] = [
+  { label: "Next.js", color: "#059669" },
+  { label: "React", color: "#0d9488" },
+  { label: "TypeScript", color: "#7c3aed" },
+  { label: "Node.js", color: "#0891b2" },
+  { label: "Tailwind", color: "#0ea5e9" },
+  { label: "MongoDB", color: "#10b981" },
+  { label: "PostgreSQL", color: "#2563eb" },
+  { label: "Docker", color: "#0284c7" },
+  { label: "Git", color: "#dc2626" },
+];
 
 export default function Skills() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -92,7 +101,8 @@ export default function Skills() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* Skill Cards */}
+        <div className="grid md:grid-cols-3 gap-6 mb-20">
           {skills.map((skill, idx) => (
             <div
               key={skill.category}
@@ -100,10 +110,10 @@ export default function Skills() {
               className="opacity-0 scale-75 transition-all duration-700 group"
               style={{ transitionDelay: `${idx * 180}ms` }}
             >
-                <div
-                  data-cursor="link"
-                  className={`relative h-full rounded-2xl glass border ${skill.border} p-8 card-tilt hover:shadow-[0_0_50px_${skill.glow}] overflow-hidden`}
-                >
+              <div
+                data-cursor="link"
+                className={`relative h-full rounded-2xl glass border ${skill.border} p-8 card-tilt hover:shadow-[0_0_50px_${skill.glow}] overflow-hidden`}
+              >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute -top-12 -right-12 w-24 h-24 rounded-full bg-gradient-to-br from-white/[0.03] to-transparent group-hover:scale-150 transition-transform duration-700" />
 
@@ -131,6 +141,27 @@ export default function Skills() {
             </div>
           ))}
         </div>
+
+        {/* Technology Orbit */}
+        <ScrollAnimations>
+          <SpotlightEffect size={400} color="rgba(5,150,105,0.05)" blur={100}>
+            <div className="flex flex-col items-center">
+              <p className="text-xs uppercase tracking-[0.2em] text-zinc-600 mb-8">
+                Technology Constellation
+              </p>
+              <SkillOrbit
+                items={orbitTech}
+                radius={180}
+                speed={0.8}
+                centerContent={
+                  <div className="w-20 h-20 rounded-full glass-strong border border-emerald-500/20 flex items-center justify-center">
+                    <span className="text-lg font-bold text-gradient">&lt;/&gt;</span>
+                  </div>
+                }
+              />
+            </div>
+          </SpotlightEffect>
+        </ScrollAnimations>
       </div>
     </section>
   );
