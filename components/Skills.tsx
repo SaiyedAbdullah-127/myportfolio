@@ -146,9 +146,6 @@ export default function Skills() {
         <ScrollAnimations>
           <SpotlightEffect size={400} color="rgba(5,150,105,0.05)" blur={100}>
             <div className="flex flex-col items-center">
-              <p className="text-xs uppercase tracking-[0.2em] text-zinc-600 mb-8">
-                Technology Constellation
-              </p>
               <SkillOrbit
                 items={orbitTech}
                 radius={180}

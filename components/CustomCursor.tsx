@@ -13,54 +13,57 @@ const SIZE_MAP: Record<CursorVariant, number> = {
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
   const variantRef = useRef<CursorVariant>("default");
   const [variant, setVariant] = useState<CursorVariant>("default");
   const [visible, setVisible] = useState(false);
+  const currentTargetRef = useRef<Element | null>(null);
 
   useEffect(() => {
     const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
     if (isTouch) return;
 
     document.body.classList.add("custom-cursor-active");
-
     const el = cursorRef.current;
     if (!el) return;
 
-    const onMouse = (e: MouseEvent) => {
+    let rafId: number;
+    let mx = 0;
+    let my = 0;
+
+    const updatePos = () => {
       const s = SIZE_MAP[variantRef.current];
-      el.style.transform = `translate(${e.clientX - s / 2}px, ${e.clientY - s / 2}px)`;
-      if (!visible) setVisible(true);
+      el.style.transform = `translate(${mx - s / 2}px, ${my - s / 2}px)`;
     };
 
-    const onHoverIn = (e: MouseEvent) => {
+    const onMouse = (e: MouseEvent) => {
+      mx = e.clientX;
+      my = e.clientY;
+      if (!visible) setVisible(true);
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updatePos);
+    };
+
+    const onHover = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest("[data-cursor]");
-      if (!target) return;
-      const type = target.getAttribute("data-cursor") as CursorVariant;
+      if (target === currentTargetRef.current) return;
+      currentTargetRef.current = target;
+      const type = target
+        ? (target.getAttribute("data-cursor") as CursorVariant)
+        : "default";
       if (type !== variantRef.current) {
         variantRef.current = type;
         setVariant(type);
       }
     };
 
-    const onHoverOut = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest("[data-cursor]");
-      if (!target) return;
-      if (variantRef.current !== "default") {
-        variantRef.current = "default";
-        setVariant("default");
-      }
-    };
-
     document.addEventListener("mousemove", onMouse, { passive: true });
-    document.addEventListener("mouseenter", onHoverIn, true);
-    document.addEventListener("mouseleave", onHoverOut, true);
+    document.addEventListener("mouseover", onHover, true);
 
     return () => {
       document.body.classList.remove("custom-cursor-active");
       document.removeEventListener("mousemove", onMouse);
-      document.removeEventListener("mouseenter", onHoverIn, true);
-      document.removeEventListener("mouseleave", onHoverOut, true);
+      document.removeEventListener("mouseover", onHover, true);
+      cancelAnimationFrame(rafId);
     };
   }, [visible]);
 
@@ -80,12 +83,10 @@ export default function CustomCursor() {
         opacity: visible ? 1 : 0,
         width: size,
         height: size,
-        transition:
-          "width 0.35s cubic-bezier(0.16, 1, 0.3, 1), height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease",
+        transition: "width 0.15s ease-out, height 0.15s ease-out, opacity 0.2s ease",
       }}
     >
       <div
-        ref={innerRef}
         className={`w-full h-full rounded-full flex items-center justify-center ${
           variant === "default"
             ? "bg-emerald-400/40 border border-emerald-400/60"
@@ -96,8 +97,7 @@ export default function CustomCursor() {
                 : "bg-teal-500/20 border border-teal-400/50 backdrop-blur-sm"
         }`}
         style={{
-          transition:
-            "background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
+          transition: "background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease",
           boxShadow:
             variant === "default"
               ? "0 0 10px rgba(5,150,105,0.3)"
@@ -106,9 +106,7 @@ export default function CustomCursor() {
       >
         {isProject && (
           <span className="text-[9px] font-bold text-emerald-300 tracking-[0.15em] uppercase text-center leading-tight select-none">
-            VIEW
-            <br />
-            CASE
+            VIEW<br />CASE
           </span>
         )}
         {variant === "link" && (

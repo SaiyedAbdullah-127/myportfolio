@@ -123,12 +123,22 @@ export default function Hero() {
             </motion.p>
 
             <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight">
-              <TextReveal as="span" className="block text-zinc-300" delay={0.3}>
+              <motion.span
+                className="block text-zinc-300"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              >
                 Syed Muhammad
-              </TextReveal>
-              <TextReveal as="span" className="block text-gradient mt-2" delay={0.5}>
+              </motion.span>
+              <motion.span
+                className="block text-gradient mt-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
                 Abdullah Maududi
-              </TextReveal>
+              </motion.span>
             </h1>
 
             <motion.div
