@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import SkillOrbit from "./ui/SkillOrbit";
 import ScrollAnimations from "./ui/ScrollAnimations";
 import SpotlightEffect from "./effects/SpotlightEffect";
+import SkillBar from "./ui/SkillBar";
 
 const skills = [
   {
@@ -17,6 +18,12 @@ const skills = [
       "HTML/CSS",
       "JavaScript",
     ],
+    bars: [
+      { label: "Next.js", level: 92 },
+      { label: "React", level: 88 },
+      { label: "TypeScript", level: 85 },
+      { label: "Tailwind CSS", level: 90 },
+    ],
     gradient: "from-emerald-500/20 via-emerald-600/10 to-teal-600/10",
     border: "border-emerald-500/20",
     glow: "rgba(5,150,105,0.15)",
@@ -26,6 +33,12 @@ const skills = [
     category: "Backend",
     icon: "🖥️",
     items: ["Node.js", "Express", "REST APIs", "PostgreSQL", "MongoDB"],
+    bars: [
+      { label: "Node.js", level: 85 },
+      { label: "Express", level: 82 },
+      { label: "PostgreSQL", level: 78 },
+      { label: "MongoDB", level: 75 },
+    ],
     gradient: "from-teal-500/20 via-teal-600/10 to-cyan-600/10",
     border: "border-teal-500/20",
     glow: "rgba(20,184,166,0.15)",
@@ -35,6 +48,12 @@ const skills = [
     category: "Tools & More",
     icon: "🛠️",
     items: ["Git", "Docker", "VS Code", "Figma", "Linux", "Vercel"],
+    bars: [
+      { label: "Git", level: 88 },
+      { label: "Docker", level: 72 },
+      { label: "Linux", level: 78 },
+      { label: "Vercel", level: 90 },
+    ],
     gradient: "from-violet-500/20 via-violet-600/10 to-cyan-600/10",
     border: "border-violet-500/20",
     glow: "rgba(124,58,237,0.15)",
@@ -125,7 +144,7 @@ export default function Skills() {
                   {skill.category}
                 </h3>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {skill.items.map((item, i) => (
                     <span
                       key={item}
@@ -135,6 +154,11 @@ export default function Skills() {
                     >
                       {item}
                     </span>
+                  ))}
+                </div>
+                <div className="space-y-2.5 border-t border-zinc-800/30 pt-4">
+                  {skill.bars.map((bar) => (
+                    <SkillBar key={bar.label} label={bar.label} level={bar.level} />
                   ))}
                 </div>
               </div>

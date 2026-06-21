@@ -66,7 +66,7 @@ export default function Navbar() {
                 active === item.href.slice(1)
                   ? "text-emerald-400 bg-emerald-400/10"
                   : "text-zinc-400 hover:text-zinc-200 hover:bg-white/5"
-              }`}
+              } underline-animate`}
             >
               {item.label}
             </a>

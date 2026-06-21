@@ -433,4 +433,62 @@ html {
   100% { }
 }
 
+/* ───── Shiny Sweep ───── */
+.shiny-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.shiny-sweep::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+.shiny-sweep:hover::before {
+  left: 125%;
+}
+
+/* ───── Arrow Animation ───── */
+.arrow-btn .arrow-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.arrow-btn:hover .arrow-icon {
+  transform: translateX(6px);
+}
+
+/* ───── Underline Animation ───── */
+.underline-animate {
+  position: relative;
+}
+
+.underline-animate::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #059669, #7c3aed);
+  transition: width 0.3s ease;
+}
+
+.underline-animate:hover::after {
+  width: 100%;
+}
+
+/* ───── Marquee Mask ───── */
+.mask-fade-x {
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+
 

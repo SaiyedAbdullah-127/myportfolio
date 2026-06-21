@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useBookmarks } from "@/context/BookmarkContext";
 import ParallaxSection from "./ParallaxSection";
 import ScrollAnimations from "./ui/ScrollAnimations";
+import ProjectModal from "./ui/ProjectModal";
 
 const projects = [
   {
@@ -34,6 +35,7 @@ export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const { isBookmarked, toggleBookmark, trackView } = useBookmarks();
+  const [modalProject, setModalProject] = useState<typeof projects[number] | null>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -93,12 +95,9 @@ export default function Projects() {
                     data-cursor="project"
                     className={`group relative h-full rounded-2xl glass glass-edge border border-zinc-800/50 overflow-hidden card-tilt ${project.borderGlow} transition-all duration-500 hover:shadow-[0_0_50px_${project.shadow}]`}
                   >
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block"
-                      onClick={() => trackView(project.title, project.link)}
+                    <button
+                      onClick={() => { setModalProject(project); trackView(project.title, project.link); }}
+                      className="w-full text-left"
                     >
                       <ParallaxSection speed={0.08}>
                         <div
@@ -113,7 +112,7 @@ export default function Projects() {
                           </div>
                         </div>
                       </ParallaxSection>
-                    </a>
+                    </button>
 
                     <button
                       onClick={(e) => { e.preventDefault(); toggleBookmark(project.title); }}
@@ -167,6 +166,18 @@ export default function Projects() {
           </div>
         </ScrollAnimations>
       </div>
+
+      {modalProject && (
+        <ProjectModal
+          open={!!modalProject}
+          onClose={() => setModalProject(null)}
+          title={modalProject.title}
+          description={modalProject.description}
+          tags={modalProject.tags}
+          link={modalProject.link}
+          gradient={modalProject.gradient}
+        />
+      )}
     </section>
   );
 }

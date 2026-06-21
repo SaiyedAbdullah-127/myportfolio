@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import ButtonGlitch from "./ButtonGlitch";
 import ButtonMarquee from "./ButtonMarquee";
 import MagneticButton from "./ui/MagneticButton";
-import TextReveal from "./ui/TextReveal";
 import AuroraBackground from "./effects/AuroraBackground";
 import ParticleField from "./effects/ParticleField";
 import SpotlightEffect from "./effects/SpotlightEffect";
@@ -19,13 +18,15 @@ const roles = [
 ];
 
 const techIcons = [
-  { label: "Next.js", x: 15, y: 20, delay: 0 },
-  { label: "React", x: 85, y: 15, delay: 1 },
-  { label: "TypeScript", x: 10, y: 70, delay: 2 },
-  { label: "Node.js", x: 88, y: 75, delay: 0.5 },
-  { label: "Tailwind", x: 75, y: 10, delay: 1.5 },
-  { label: "MongoDB", x: 20, y: 80, delay: 2.5 },
+  { label: "Next.js", x: 12, y: 18, delay: 0, duration: 7 },
+  { label: "React", x: 82, y: 12, delay: 1, duration: 9 },
+  { label: "TypeScript", x: 8, y: 72, delay: 2, duration: 8 },
+  { label: "Supabase", x: 86, y: 78, delay: 0.5, duration: 10 },
+  { label: "Tailwind", x: 72, y: 6, delay: 1.5, duration: 6 },
+  { label: "PostgreSQL", x: 16, y: 82, delay: 2.5, duration: 9 },
 ];
+
+const nameWords = ["Syed", "Muhammad", "Abdullah", "Maududi"];
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -71,28 +72,28 @@ export default function Hero() {
           <ParticleField count={50} connectionDistance={100} speed={0.2} />
           <NoiseOverlay opacity={0.02} pattern="dots" />
           <div className="absolute top-1/4 -left-32 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-float" />
-          <div
-            className="absolute bottom-1/4 -right-32 w-96 h-96 bg-violet-500/15 rounded-full blur-[120px] animate-float"
-            style={{ animationDelay: "-3s" }}
-          />
-          <div
-            className="absolute top-1/3 right-1/3 w-64 h-64 bg-teal-500/10 rounded-full blur-[100px] animate-float-slow"
-            style={{ animationDelay: "-1.5s" }}
-          />
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-br from-emerald-500/5 via-teal-500/5 to-violet-500/5 rounded-full blur-[150px] animate-morph"
-            style={{ animationDuration: "14s" }}
-          />
+          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-violet-500/15 rounded-full blur-[120px] animate-float" style={{ animationDelay: "-3s" }} />
+          <div className="absolute top-1/3 right-1/3 w-64 h-64 bg-teal-500/10 rounded-full blur-[100px] animate-float-slow" style={{ animationDelay: "-1.5s" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-br from-emerald-500/5 via-teal-500/5 to-violet-500/5 rounded-full blur-[150px] animate-morph" style={{ animationDuration: "14s" }} />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(5,150,105,0.03)_0%,transparent_70%)]" />
         </div>
 
-        {mounted && techIcons.map((tech, i) => (
+        {mounted && techIcons.map((tech) => (
           <motion.div
             key={tech.label}
             className="absolute hidden lg:block"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: [0, 1, 0.6, 1], scale: 1 }}
-            transition={{ duration: 0.5, delay: tech.delay, repeat: Infinity, repeatDelay: 4 + i }}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{
+              opacity: [0, 1, 0.7, 1],
+              scale: 1,
+              y: [0, -12, 0, 12, 0],
+            }}
+            transition={{
+              duration: tech.duration,
+              delay: tech.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
             style={{ top: `${tech.y}%`, left: `${tech.x}%` }}
           >
             <div className="px-3 py-1.5 rounded-full glass-strong border border-zinc-800/50 text-[10px] text-zinc-500 font-medium whitespace-nowrap hover:text-emerald-400 hover:border-emerald-500/30 transition-colors duration-300">
@@ -123,28 +124,27 @@ export default function Hero() {
             </motion.p>
 
             <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight">
-              <motion.span
-                className="block text-zinc-300"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              >
-                Syed Muhammad
-              </motion.span>
-              <motion.span
-                className="block text-gradient mt-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                Abdullah Maududi
-              </motion.span>
+              {nameWords.map((word, i) => (
+                <motion.span
+                  key={word}
+                  className={`block ${i < 2 ? "text-zinc-300" : "text-gradient"} ${i > 0 ? "mt-1 sm:mt-2" : ""}`}
+                  initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+                  animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: 0.3 + i * 0.15,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                >
+                  {word}
+                </motion.span>
+              ))}
             </h1>
 
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
+              transition={{ duration: 0.5, delay: 0.9 }}
               className="h-12 flex items-center justify-center"
             >
               <p className="text-xl sm:text-2xl md:text-3xl text-zinc-400 font-light">
@@ -156,7 +156,7 @@ export default function Hero() {
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
+              transition={{ duration: 0.5, delay: 1.0 }}
               className="max-w-xl mx-auto text-zinc-500 text-base sm:text-lg leading-relaxed"
             >
               Crafting modern, responsive, and performant web applications
@@ -168,25 +168,29 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.9 }}
+            transition={{ duration: 0.5, delay: 1.1 }}
             className="mt-12 flex flex-wrap items-center justify-center gap-4"
           >
             <MagneticButton as="a" href="#projects">
-              <ButtonGlitch className="px-8 py-3.5 rounded-full bg-gradient-to-r from-emerald-600 via-teal-600 to-violet-600 text-white font-medium hover:shadow-[0_0_40px_rgba(5,150,105,0.4)] active:scale-95">
-                View My Work
-              </ButtonGlitch>
+              <span className="shiny-sweep arrow-btn inline-block">
+                <ButtonGlitch className="px-8 py-3.5 rounded-full bg-gradient-to-r from-emerald-600 via-teal-600 to-violet-600 text-white font-medium hover:shadow-[0_0_40px_rgba(5,150,105,0.4)] active:scale-95">
+                  View My Work <span className="arrow-icon ml-1 inline-block">→</span>
+                </ButtonGlitch>
+              </span>
             </MagneticButton>
             <MagneticButton as="a" href="#contact">
-              <ButtonMarquee className="px-8 py-3.5 rounded-full glass border border-zinc-700/50 text-zinc-300 font-medium hover:border-emerald-500/30 hover:text-emerald-400 active:scale-95">
-                Get In Touch
-              </ButtonMarquee>
+              <span className="shiny-sweep inline-block">
+                <ButtonMarquee className="px-8 py-3.5 rounded-full glass border border-zinc-700/50 text-zinc-300 font-medium hover:border-emerald-500/30 hover:text-emerald-400 active:scale-95">
+                  Get In Touch
+                </ButtonMarquee>
+              </span>
             </MagneticButton>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1.1 }}
+            transition={{ duration: 0.5, delay: 1.3 }}
             className="mt-16 flex justify-center"
           >
             <a
