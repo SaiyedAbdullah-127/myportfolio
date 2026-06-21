@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useBookmarks } from "@/context/BookmarkContext";
+import ParallaxSection from "./ParallaxSection";
 
 const projects = [
   {
@@ -30,6 +32,7 @@ const projects = [
 export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const { isBookmarked, toggleBookmark, trackView } = useBookmarks();
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -74,29 +77,64 @@ export default function Projects() {
         </div>
 
         <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {projects.map((project, idx) => (
-            <div
-              key={project.title}
-              ref={(el) => { cardsRef.current[idx] = el; }}
-              className={`opacity-0 ${idx === 0 ? "-translate-x-16" : "translate-x-16"} transition-all duration-700`}
-              style={{ transitionDelay: `${200 + idx * 180}ms` }}
-            >
-              <a href={project.link} target="_blank" rel="noopener noreferrer" className="block h-full">
+          {projects.map((project, idx) => {
+            const bookmarked = isBookmarked(project.title);
+            return (
+              <div
+                key={project.title}
+                data-project={project.title}
+                ref={(el) => { cardsRef.current[idx] = el; }}
+                className={`opacity-0 ${idx === 0 ? "-translate-x-16" : "translate-x-16"} transition-all duration-700`}
+                style={{ transitionDelay: `${200 + idx * 180}ms` }}
+              >
                 <div
                   data-cursor="project"
-                  className={`group relative h-full rounded-2xl glass border border-zinc-800/50 overflow-hidden card-tilt ${project.borderGlow} transition-all duration-500 hover:shadow-[0_0_50px_${project.shadow}]`}
+                  className={`group relative h-full rounded-2xl glass glass-edge border border-zinc-800/50 overflow-hidden card-tilt ${project.borderGlow} transition-all duration-500 hover:shadow-[0_0_50px_${project.shadow}]`}
                 >
-                  <div
-                    className={`h-44 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                    onClick={() => trackView(project.title, project.link)}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                    <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/[0.03] group-hover:scale-[3] transition-transform duration-1000 ease-out" />
-                    <div className="w-20 h-20 rounded-2xl glass-strong flex items-center justify-center group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 group-hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                      <span className="text-3xl font-bold text-gradient">
-                        {project.title.charAt(0)}
-                      </span>
-                    </div>
-                  </div>
+                    <ParallaxSection speed={0.08}>
+                      <div
+                        className={`h-44 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/[0.03] group-hover:scale-[3] transition-transform duration-1000 ease-out" />
+                        <div className="w-20 h-20 rounded-2xl glass-strong flex items-center justify-center group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 group-hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                          <span className="text-3xl font-bold text-gradient">
+                            {project.title.charAt(0)}
+                          </span>
+                        </div>
+                      </div>
+                    </ParallaxSection>
+                  </a>
+
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toggleBookmark(project.title);
+                    }}
+                    className="absolute top-3 left-3 z-20 w-8 h-8 rounded-full glass-strong border border-zinc-700/50 flex items-center justify-center hover:border-emerald-500/30 transition-all duration-300 hover:scale-110 active:scale-90"
+                    aria-label={bookmarked ? "Remove bookmark" : "Bookmark project"}
+                    data-cursor="link"
+                  >
+                    <svg
+                      className={`w-4 h-4 transition-all duration-300 ${
+                        bookmarked ? "text-emerald-400 fill-emerald-400" : "text-zinc-500 fill-transparent"
+                      }`}
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      viewBox="0 0 24 24"
+                      fill={bookmarked ? "currentColor" : "none"}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                    </svg>
+                  </button>
+
                   <div className="p-6 relative">
                     <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
                     <h3 className="text-lg font-semibold text-zinc-200 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:to-violet-400 group-hover:bg-clip-text transition-all duration-300">
@@ -128,9 +166,9 @@ export default function Projects() {
                     </span>
                   </div>
                 </div>
-              </a>
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

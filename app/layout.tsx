@@ -3,6 +3,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import CustomCursor from "@/components/CustomCursor";
+import CommandPalette from "@/components/CommandPalette";
+import KeyboardShortcuts from "@/components/KeyboardShortcuts";
+import PIPVideo from "@/components/PIPVideo";
+import { I18nProvider } from "@/context/I18nContext";
+import { BookmarkProvider } from "@/context/BookmarkContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -38,10 +43,17 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body className="min-h-screen bg-dot-grid" suppressHydrationWarning>
-        <ScrollProgress />
-        {children}
-        <FloatingWhatsApp />
-        <CustomCursor />
+        <I18nProvider>
+          <BookmarkProvider>
+            <ScrollProgress />
+            <KeyboardShortcuts />
+            <CommandPalette />
+            {children}
+            <FloatingWhatsApp />
+            <PIPVideo />
+            <CustomCursor />
+          </BookmarkProvider>
+        </I18nProvider>
       </body>
     </html>
   );

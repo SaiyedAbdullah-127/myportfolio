@@ -168,6 +168,56 @@ body {
   transform: rotateY(4deg) rotateX(3deg);
 }
 
+/* ───── Neumorphism ───── */
+.neumorph {
+  background: #0a0a14;
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.5),
+    -8px -8px 16px rgba(255, 255, 255, 0.03);
+  border: none;
+}
+
+.neumorph-inset {
+  background: #0a0a14;
+  box-shadow:
+    inset 4px 4px 8px rgba(0, 0, 0, 0.5),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.03);
+  border: none;
+}
+
+.neumorph-glow {
+  background: #0a0a14;
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.5),
+    -8px -8px 16px rgba(255, 255, 255, 0.03),
+    0 0 30px rgba(5, 150, 105, 0.1);
+}
+
+/* ───── Enhanced Glass ───── */
+.glass-deep {
+  background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.glass-edge {
+  position: relative;
+}
+
+.glass-edge::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, transparent 40%, rgba(5,150,105,0.15), rgba(124,58,237,0.15), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
 /* ───── Glass ───── */
 .glass {
   background: rgba(255, 255, 255, 0.03);
