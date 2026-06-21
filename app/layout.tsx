@@ -6,18 +6,9 @@ import CustomCursor from "@/components/CustomCursor";
 import CommandPalette from "@/components/CommandPalette";
 import KeyboardShortcuts from "@/components/KeyboardShortcuts";
 import PIPVideo from "@/components/PIPVideo";
-import FloatingDock from "@/components/ui/FloatingDock";
 import RadialMenu from "@/components/ui/RadialMenu";
 import { I18nProvider } from "@/context/I18nContext";
 import { BookmarkProvider } from "@/context/BookmarkContext";
-
-const dockItems = [
-  { label: "Home", href: "#home", icon: <span className="text-xs">⌂</span> },
-  { label: "About", href: "#about", icon: <span className="text-xs">☰</span> },
-  { label: "Skills", href: "#skills", icon: <span className="text-xs">⚡</span> },
-  { label: "Projects", href: "#projects", icon: <span className="text-xs">◆</span> },
-  { label: "Contact", href: "#contact", icon: <span className="text-xs">✉</span> },
-];
 
 const radialItems = [
   { label: "Home", href: "#home", icon: <span className="text-xs">⌂</span> },
@@ -70,7 +61,6 @@ export default function RootLayout({
             {children}
             <FloatingWhatsApp />
             <PIPVideo />
-            <FloatingDock items={dockItems} />
             <RadialMenu items={radialItems} />
             <CustomCursor />
           </BookmarkProvider>
