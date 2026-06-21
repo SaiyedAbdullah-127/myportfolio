@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import CustomCursor from "@/components/CustomCursor";
-import PIPVideo from "@/components/PIPVideo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -43,7 +42,6 @@ export default function RootLayout({
         {children}
         <FloatingWhatsApp />
         <CustomCursor />
-        <PIPVideo />
       </body>
     </html>
   );

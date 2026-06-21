@@ -352,44 +352,4 @@ html {
   100% { }
 }
 
-/* ───── PIP Video ───── */
-.pip-container {
-  position: fixed;
-  bottom: 6rem;
-  right: 1.5rem;
-  z-index: 40;
-  width: 200px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
 
-.pip-container:hover {
-  box-shadow: 0 12px 48px rgba(5, 150, 105, 0.3);
-}
-
-.pip-video-placeholder {
-  aspect-ratio: 16 / 9;
-  background: linear-gradient(135deg, rgba(5, 150, 105, 0.2), rgba(124, 58, 237, 0.2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.pip-video-placeholder::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(5, 150, 105, 0.1), transparent);
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-
-@media (max-width: 640px) {
-  .pip-container {
-    width: 140px;
-    bottom: 5rem;
-    right: 1rem;
-  }
-}
