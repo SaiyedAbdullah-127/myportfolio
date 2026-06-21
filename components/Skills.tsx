@@ -100,9 +100,10 @@ export default function Skills() {
               className="opacity-0 scale-75 transition-all duration-700 group"
               style={{ transitionDelay: `${idx * 180}ms` }}
             >
-              <div
-                className={`relative h-full rounded-2xl glass border ${skill.border} p-8 card-tilt hover:shadow-[0_0_50px_${skill.glow}] overflow-hidden`}
-              >
+                <div
+                  data-cursor="link"
+                  className={`relative h-full rounded-2xl glass border ${skill.border} p-8 card-tilt hover:shadow-[0_0_50px_${skill.glow}] overflow-hidden`}
+                >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute -top-12 -right-12 w-24 h-24 rounded-full bg-gradient-to-br from-white/[0.03] to-transparent group-hover:scale-150 transition-transform duration-700" />
 
@@ -118,6 +119,7 @@ export default function Skills() {
                   {skill.items.map((item, i) => (
                     <span
                       key={item}
+                      data-cursor="link"
                       className="px-3 py-1.5 rounded-lg text-sm bg-white/5 text-zinc-400 border border-zinc-800/50 hover:border-emerald-500/30 hover:text-emerald-400 hover:bg-emerald-500/10 hover:shadow-[0_0_15px_rgba(5,150,105,0.1)] transition-all duration-300 hover:scale-105 active:scale-95 cursor-default"
                       style={{ transitionDelay: `${i * 50}ms` }}
                     >

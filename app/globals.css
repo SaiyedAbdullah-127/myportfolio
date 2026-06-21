@@ -18,6 +18,16 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* ───── Custom Cursor ───── */
+.custom-cursor-active {
+  cursor: none;
+}
+.custom-cursor-active a,
+.custom-cursor-active button,
+.custom-cursor-active [data-cursor] {
+  cursor: none;
+}
+
 /* ───── Background dot grid ───── */
 .bg-dot-grid {
   background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
@@ -124,6 +134,11 @@ body {
 @keyframes ripple {
   0% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.4); }
   100% { box-shadow: 0 0 0 20px rgba(5, 150, 105, 0); }
+}
+
+@keyframes ripple-drop {
+  0% { transform: scale(0) translate(0, 0); opacity: 1; }
+  100% { transform: scale(3) translate(var(--tx, 20px), var(--ty, -20px)); opacity: 0; }
 }
 
 /* ───── Utility classes ───── */
@@ -276,4 +291,105 @@ html {
 ::selection {
   background: rgba(5, 150, 105, 0.3);
   color: #fff;
+}
+
+/* ───── Enhanced Button Effects ───── */
+
+/* Marquee Animation */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee-scroll 6s linear infinite;
+}
+
+/* Glitch Effects */
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(-2deg); }
+  40% { transform: skew(1deg); }
+  60% { transform: skew(-3deg); }
+  80% { transform: skew(2deg); }
+  100% { transform: skew(0deg); }
+}
+
+@keyframes glitch-split {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
+  10% { clip-path: inset(20% 0 60% 0); transform: translate(-2px, 2px); }
+  20% { clip-path: inset(50% 0 30% 0); transform: translate(2px, -1px); }
+  30% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 3px); }
+  40% { clip-path: inset(40% 0 40% 0); transform: translate(3px, 1px); }
+  50% { clip-path: inset(60% 0 20% 0); transform: translate(-3px, -2px); }
+  60% { clip-path: inset(30% 0 50% 0); transform: translate(1px, 2px); }
+  70% { clip-path: inset(70% 0 10% 0); transform: translate(2px, -3px); }
+  80% { clip-path: inset(20% 0 60% 0); transform: translate(-2px, 1px); }
+  90% { clip-path: inset(45% 0 35% 0); transform: translate(1px, -1px); }
+  100% { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
+}
+
+.glitch-text:hover .glitch-char {
+  animation: glitch-skew 0.4s ease-in-out;
+}
+
+.glitch-text:hover .glitch-split-layer {
+  animation: glitch-split 0.6s ease-in-out;
+}
+
+/* Liquid Button SVG Filter */
+.liquid-btn svg filter feTurbulence {
+  animation: none;
+}
+
+.liquid-btn:hover svg filter feTurbulence {
+  animation: liquid-turbulence 0.6s ease-in-out;
+}
+
+@keyframes liquid-turbulence {
+  0% { }
+  50% { }
+  100% { }
+}
+
+/* ───── PIP Video ───── */
+.pip-container {
+  position: fixed;
+  bottom: 6rem;
+  right: 1.5rem;
+  z-index: 40;
+  width: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pip-container:hover {
+  box-shadow: 0 12px 48px rgba(5, 150, 105, 0.3);
+}
+
+.pip-video-placeholder {
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.2), rgba(124, 58, 237, 0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.pip-video-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(5, 150, 105, 0.1), transparent);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@media (max-width: 640px) {
+  .pip-container {
+    width: 140px;
+    bottom: 5rem;
+    right: 1rem;
+  }
 }

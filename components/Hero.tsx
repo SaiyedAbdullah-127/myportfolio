@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ButtonGlitch from "./ButtonGlitch";
+import ButtonMarquee from "./ButtonMarquee";
 
 const roles = [
   "Full Stack Web Developer",
@@ -123,19 +125,18 @@ export default function Hero() {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-          <a
+          <ButtonGlitch
             href="#projects"
-            className="group relative px-8 py-3.5 rounded-full bg-gradient-to-r from-emerald-600 via-teal-600 to-violet-600 text-white font-medium overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(5,150,105,0.4)] hover:scale-105 active:scale-95"
+            className="px-8 py-3.5 rounded-full bg-gradient-to-r from-emerald-600 via-teal-600 to-violet-600 text-white font-medium hover:shadow-[0_0_40px_rgba(5,150,105,0.4)] hover:scale-105 active:scale-95"
           >
-            <span className="relative z-10">View My Work</span>
-            <span className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-teal-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </a>
-          <a
+            View My Work
+          </ButtonGlitch>
+          <ButtonMarquee
             href="#contact"
-            className="group relative px-8 py-3.5 rounded-full glass border border-zinc-700/50 text-zinc-300 font-medium transition-all duration-300 hover:border-emerald-500/30 hover:text-emerald-400 hover:scale-105 active:scale-95"
+            className="px-8 py-3.5 rounded-full glass border border-zinc-700/50 text-zinc-300 font-medium hover:border-emerald-500/30 hover:text-emerald-400 hover:scale-105 active:scale-95"
           >
             Get In Touch
-          </a>
+          </ButtonMarquee>
         </div>
 
         <div className="mt-16 flex justify-center">

@@ -54,6 +54,7 @@ export default function Navbar() {
             <a
               key={item.href}
               href={item.href}
+              data-cursor="link"
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 active === item.href.slice(1)
                   ? "text-emerald-400 bg-emerald-400/10"
@@ -100,6 +101,7 @@ export default function Navbar() {
             <a
               key={item.href}
               href={item.href}
+              data-cursor="link"
               onClick={() => setMobileOpen(false)}
               className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                 active === item.href.slice(1)

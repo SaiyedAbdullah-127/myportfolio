@@ -4,6 +4,7 @@ export default function FloatingWhatsApp() {
   return (
     <a
       href="https://wa.me/923229693243"
+      data-cursor="link"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 group"

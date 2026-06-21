@@ -83,6 +83,7 @@ export default function Projects() {
             >
               <a href={project.link} target="_blank" rel="noopener noreferrer" className="block h-full">
                 <div
+                  data-cursor="project"
                   className={`group relative h-full rounded-2xl glass border border-zinc-800/50 overflow-hidden card-tilt ${project.borderGlow} transition-all duration-500 hover:shadow-[0_0_50px_${project.shadow}]`}
                 >
                   <div
@@ -108,6 +109,7 @@ export default function Projects() {
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
+                          data-cursor="link"
                           className="px-2.5 py-1 rounded-md text-xs bg-white/5 text-zinc-500 border border-zinc-800/50 hover:bg-emerald-500/10 hover:text-emerald-400 hover:border-emerald-500/30 transition-all duration-300 hover:scale-105 active:scale-95"
                         >
                           {tag}

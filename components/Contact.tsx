@@ -96,6 +96,7 @@ export default function Contact() {
                   key={item.label}
                   ref={(el) => { itemsRef.current[idx] = el; }}
                   href={item.href}
+                  data-cursor="link"
                   target={item.external ? "_blank" : undefined}
                   rel={item.external ? "noopener noreferrer" : undefined}
                   className="opacity-0 translate-y-12 transition-all duration-700 group flex items-center gap-2.5 sm:gap-4 p-2.5 sm:p-4 rounded-xl glass-strong border border-zinc-800/50 hover:border-emerald-500/30 hover:shadow-[0_0_40px_rgba(5,150,105,0.15)] hover:scale-[1.02] active:scale-[0.98]"

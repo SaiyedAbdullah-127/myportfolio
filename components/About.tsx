@@ -127,7 +127,7 @@ export default function About() {
               ref={(el) => { contentRefs.current[4] = el; }}
               className="opacity-0 translate-y-8 transition-all duration-700 flex flex-wrap gap-3 pt-4"
             >
-              {[
+                {[
                 "Dedication",
                 "Innovation",
                 "Quality",
@@ -135,6 +135,7 @@ export default function About() {
               ].map((trait) => (
                 <span
                   key={trait}
+                  data-cursor="link"
                   className="px-4 py-2 rounded-full text-sm glass text-zinc-300 border-zinc-700/50 hover:border-emerald-500/30 hover:text-emerald-400 hover:bg-emerald-500/10 hover:shadow-[0_0_25px_rgba(5,150,105,0.2)] transition-all duration-300 hover:scale-105 active:scale-95"
                 >
                   {trait}
