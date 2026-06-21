@@ -144,15 +144,15 @@ export default function Skills() {
 
         {/* Technology Orbit */}
         <ScrollAnimations>
-          <SpotlightEffect size={400} color="rgba(5,150,105,0.05)" blur={100}>
-            <div className="flex flex-col items-center">
+          <SpotlightEffect size={600} color="rgba(5,150,105,0.05)" blur={100}>
+            <div className="flex flex-col items-center w-full overflow-visible px-4">
               <SkillOrbit
                 items={orbitTech}
-                radius={180}
+                radius={260}
                 speed={0.8}
                 centerContent={
-                  <div className="w-20 h-20 rounded-full glass-strong border border-emerald-500/20 flex items-center justify-center">
-                    <span className="text-lg font-bold text-gradient">&lt;/&gt;</span>
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full glass-strong border border-emerald-500/20 flex items-center justify-center">
+                    <span className="text-xl sm:text-2xl font-bold text-gradient">&lt;/&gt;</span>
                   </div>
                 }
               />

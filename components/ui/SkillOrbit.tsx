@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useMemo } from "react";
+import { useRef, useEffect, useMemo, useState } from "react";
 
 interface TechItem {
   label: string;
@@ -24,6 +24,21 @@ export default function SkillOrbit({
   centerContent,
 }: SkillOrbitProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const updateScale = () => {
+      const w = window.innerWidth;
+      if (w < 480) setScale(0.45);
+      else if (w < 640) setScale(0.55);
+      else if (w < 768) setScale(0.7);
+      else if (w < 1024) setScale(0.85);
+      else setScale(1);
+    };
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
 
   const orbits = useMemo(() => {
     const count = items.length;
@@ -50,7 +65,7 @@ export default function SkillOrbit({
         const a = orb.angle + t * (0.5 + orb.layer * 0.3);
         const x = Math.cos(a) * orb.r;
         const y = Math.sin(a) * orb.r * 0.5;
-        dot.style.transform = `translate(${x}px, ${y}px)`;
+        dot.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
         dot.style.opacity = `${0.6 + Math.sin(a) * 0.3}`;
       });
       frame = requestAnimationFrame(animate);
@@ -61,41 +76,46 @@ export default function SkillOrbit({
   }, [orbits, speed]);
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative flex items-center justify-center ${className}`}
-      style={{ width: radius * 2.4, height: radius * 2.4 }}
-    >
-      {[...Array(3)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full border border-zinc-800/30"
-          style={{
-            width: radius * 2 * (0.6 + i * 0.2),
-            height: radius * 2 * (0.6 + i * 0.2),
-            borderStyle: "dashed",
-          }}
-        />
-      ))}
-      <div className="relative z-10">{centerContent}</div>
-      {orbits.map((item, i) => (
-        <div
-          key={i}
-          data-orb
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{ willChange: "transform" }}
-        >
+    <div className="flex items-center justify-center w-full overflow-hidden py-8">
+      <div
+        ref={containerRef}
+        className={`relative flex items-center justify-center ${className}`}
+        style={{
+          width: radius * 2.4,
+          height: radius * 2.4,
+          transform: `scale(${scale})`,
+          transformOrigin: "center center",
+        }}
+      >
+        {[...Array(3)].map((_, i) => (
           <div
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full glass-strong border border-zinc-800/50 whitespace-nowrap"
+            key={i}
+            className="absolute rounded-full border border-zinc-800/30"
+            style={{
+              width: radius * 2 * (0.6 + i * 0.2),
+              height: radius * 2 * (0.6 + i * 0.2),
+              borderStyle: "dashed",
+            }}
+          />
+        ))}
+        <div className="relative z-10">{centerContent}</div>
+        {orbits.map((item, i) => (
+          <div
+            key={i}
+            data-orb
+            className="absolute left-1/2 top-1/2"
+            style={{ willChange: "transform" }}
           >
-            <span
-              className="w-2 h-2 rounded-full shrink-0"
-              style={{ backgroundColor: item.color || "#059669" }}
-            />
-            <span className="text-[10px] text-zinc-400 font-medium">{item.label}</span>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full glass-strong border border-zinc-800/50 whitespace-nowrap">
+              <span
+                className="w-2 h-2 rounded-full shrink-0"
+                style={{ backgroundColor: item.color || "#059669" }}
+              />
+              <span className="text-[10px] text-zinc-400 font-medium">{item.label}</span>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

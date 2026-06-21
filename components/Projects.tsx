@@ -3,11 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useBookmarks } from "@/context/BookmarkContext";
 import ParallaxSection from "./ParallaxSection";
-import { BentoGrid, BentoItem } from "./ui/BentoGrid";
-import DeviceFrame from "./ui/DeviceFrame";
-import ProjectCarousel from "./ui/ProjectCarousel";
 import ScrollAnimations from "./ui/ScrollAnimations";
-import SpotlightEffect from "./effects/SpotlightEffect";
 
 const projects = [
   {
@@ -81,9 +77,8 @@ export default function Projects() {
           </h2>
         </div>
 
-        {/* Main grid */}
         <ScrollAnimations>
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto mb-20">
+          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {projects.map((project, idx) => {
               const bookmarked = isBookmarked(project.title);
               return (
@@ -170,63 +165,6 @@ export default function Projects() {
               );
             })}
           </div>
-        </ScrollAnimations>
-
-        {/* Bento grid */}
-        <ScrollAnimations direction="left">
-          <BentoGrid cols={2} gap={4} className="max-w-2xl mx-auto mb-20">
-            {projects.map((p, i) => (
-              <BentoItem key={p.title} colSpan={1} rowSpan={i === 0 ? 2 : 1}>
-                <SpotlightEffect size={200} color="rgba(5,150,105,0.06)" blur={60}>
-                  <a
-                    href={p.link} target="_blank" rel="noopener noreferrer"
-                    onClick={() => trackView(p.title, p.link)}
-                    className="flex flex-col items-center justify-center h-full p-6 text-center"
-                  >
-                    <span className="text-2xl font-bold text-gradient mb-2">{p.title.charAt(0)}</span>
-                    <h4 className="text-sm font-semibold text-zinc-300 mb-1">{p.title}</h4>
-                    <p className="text-[10px] text-zinc-500 line-clamp-2">{p.description}</p>
-                  </a>
-                </SpotlightEffect>
-              </BentoItem>
-            ))}
-          </BentoGrid>
-        </ScrollAnimations>
-
-        {/* Device frames */}
-        <ScrollAnimations direction="right">
-          <div className="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20">
-            {projects.map((p, i) => (
-              <div key={p.title} className="text-center">
-                <DeviceFrame type={i === 0 ? "laptop" : "phone"}>
-                  <div className={`w-full h-full bg-gradient-to-br ${p.gradient} flex items-center justify-center`}>
-                    <span className="text-lg font-bold text-white/30">{p.title}</span>
-                  </div>
-                </DeviceFrame>
-                <p className="text-xs text-zinc-500 mt-3">{p.title}</p>
-              </div>
-            ))}
-          </div>
-        </ScrollAnimations>
-
-        {/* Carousel */}
-        <ScrollAnimations>
-          <SpotlightEffect size={300} color="rgba(5,150,105,0.05)" blur={80}>
-            <ProjectCarousel itemWidth={280} gap={20}>
-              {projects.map((p) => (
-                <div
-                  key={p.title}
-                  className={`rounded-2xl glass glass-edge border ${p.borderGlow} p-6 h-48 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-[0_0_40px_rgba(5,150,105,0.1)] transition-all duration-300`}
-                  onClick={() => { trackView(p.title, p.link); window.open(p.link, "_blank"); }}
-                  data-cursor="project"
-                >
-                  <span className="text-3xl font-bold text-gradient mb-2">{p.title.charAt(0)}</span>
-                  <h4 className="text-sm font-semibold text-zinc-300 mb-1">{p.title}</h4>
-                  <p className="text-[10px] text-zinc-500 line-clamp-2">{p.description}</p>
-                </div>
-              ))}
-            </ProjectCarousel>
-          </SpotlightEffect>
         </ScrollAnimations>
       </div>
     </section>
