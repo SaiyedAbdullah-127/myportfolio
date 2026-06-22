@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import ButtonGlitch from "./ButtonGlitch";
 import ButtonMarquee from "./ButtonMarquee";
 import MagneticButton from "./ui/MagneticButton";
@@ -19,14 +19,13 @@ const roles = [
 
 const techIcons = [
   { label: "Next.js", x: 12, y: 18, delay: 0, duration: 7 },
-  { label: "React", x: 82, y: 12, delay: 1, duration: 9 },
-  { label: "TypeScript", x: 8, y: 72, delay: 2, duration: 8 },
+
   { label: "Supabase", x: 86, y: 78, delay: 0.5, duration: 10 },
   { label: "Tailwind", x: 72, y: 6, delay: 1.5, duration: 6 },
   { label: "PostgreSQL", x: 16, y: 82, delay: 2.5, duration: 9 },
 ];
 
-const nameWords = ["Syed", "Muhammad", "Abdullah", "Maududi"];
+const nameWords = ["Syed Muhammad", "Abdullah", "Maududi"];
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -124,16 +123,16 @@ export default function Hero() {
             </motion.p>
 
             <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight">
-              {nameWords.map((word, i) => (
+              {nameWords.map((word, wi) => (
                 <motion.span
                   key={word}
-                  className={`block ${i < 2 ? "text-zinc-300" : "text-gradient"} ${i > 0 ? "mt-1 sm:mt-2" : ""}`}
-                  initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-                  animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                  className={`block ${wi > 0 ? "mt-1 sm:mt-2" : ""} ${wi < 2 ? "text-zinc-300" : "text-gradient"}`}
+                  initial={{ clipPath: "inset(0 100% 0 0)" }}
+                  animate={{ clipPath: "inset(0 0% 0 0)" }}
                   transition={{
-                    duration: 0.7,
-                    delay: 0.3 + i * 0.15,
-                    ease: [0.16, 1, 0.3, 1],
+                    duration: 0.9,
+                    delay: 0.3 + wi * 0.25,
+                    ease: [0.25, 0.46, 0.45, 0.94],
                   }}
                 >
                   {word}

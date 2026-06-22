@@ -3,7 +3,7 @@
 import StatCounter from "./ui/StatCounter";
 
 const stats = [
-  { end: 10, suffix: "+", label: "Projects Built" },
+  { end: 4, suffix: "+", label: "Projects Built" },
   { end: 100, suffix: "%", label: "Responsive Designs" },
   { end: 100, suffix: "%", label: "Satisfaction" },
   { end: 24, suffix: "/7", label: "Passion For Coding" },

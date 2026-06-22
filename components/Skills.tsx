@@ -32,12 +32,12 @@ const skills = [
   {
     category: "Backend",
     icon: "🖥️",
-    items: ["Node.js", "Express", "REST APIs", "PostgreSQL", "MongoDB"],
+    items: ["Node.js", "Express", "REST APIs", "PostgreSQL", "Supabase"],
     bars: [
       { label: "Node.js", level: 85 },
       { label: "Express", level: 82 },
       { label: "PostgreSQL", level: 78 },
-      { label: "MongoDB", level: 75 },
+      { label: "Supabase", level: 75 },
     ],
     gradient: "from-teal-500/20 via-teal-600/10 to-cyan-600/10",
     border: "border-teal-500/20",
@@ -47,11 +47,11 @@ const skills = [
   {
     category: "Tools & More",
     icon: "🛠️",
-    items: ["Git", "Docker", "VS Code", "Figma", "Linux", "Vercel"],
+    items: ["Git", "Opencode", "Claudecode", "Supabase", "", "Vercel"],
     bars: [
       { label: "Git", level: 88 },
-      { label: "Docker", level: 72 },
-      { label: "Linux", level: 78 },
+      { label: "Opencode", level: 72 },
+      { label: "Claudecode", level: 75 },
       { label: "Vercel", level: 90 },
     ],
     gradient: "from-violet-500/20 via-violet-600/10 to-cyan-600/10",
@@ -63,14 +63,13 @@ const skills = [
 
 const orbitTech: { label: string; color: string }[] = [
   { label: "Next.js", color: "#059669" },
-  { label: "React", color: "#0d9488" },
-  { label: "TypeScript", color: "#7c3aed" },
+  { label: "Tailwind", color: "#0d9488" },
+  { label: "Opencode", color: "#7c3aed" },
   { label: "Node.js", color: "#0891b2" },
-  { label: "Tailwind", color: "#0ea5e9" },
-  { label: "MongoDB", color: "#10b981" },
+  { label: "Supabase", color: "#0ea5e9" },
+  { label: "Git", color: "#10b981" },
   { label: "PostgreSQL", color: "#2563eb" },
-  { label: "Docker", color: "#0284c7" },
-  { label: "Git", color: "#dc2626" },
+
 ];
 
 export default function Skills() {
