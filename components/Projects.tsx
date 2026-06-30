@@ -11,7 +11,7 @@ const projects = [
     title: "Bakery Web",
     description:
       "A modern, responsive bakery website with stunning visuals, smooth animations, and an intuitive ordering experience. Built with Next.js and Tailwind CSS.",
-    tags: ["Next.js", "Tailwind CSS", "TypeScript", "Vercel"],
+    tags: ["Next.js", "Tailwind CSS", "TypeScript","Supabase/PostgreSQL", "Vercel"],
     link: "https://bakeryweb-kappa.vercel.app",
     gradient: "from-amber-500/15 via-orange-500/10 to-rose-500/10",
     iconBg: "from-amber-500/20 to-orange-500/20",
@@ -22,7 +22,7 @@ const projects = [
     title: "Bookstore MVP",
     description:
       "A full-featured bookstore platform with book browsing, search, and management capabilities. Clean UI with seamless navigation and performance.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS","Supabase/PostgreSQL", "Vercel"],
     link: "https://bookstoremvp.vercel.app",
     gradient: "from-emerald-500/15 via-teal-500/10 to-cyan-500/10",
     iconBg: "from-emerald-500/20 to-teal-500/20",
@@ -33,7 +33,7 @@ const projects = [
     title: "Coder's Log",
     description:
       "A full-stack blog platform with user authentication, CRUD operations, and a clean reading experience. Built for developers to share knowledge and insights.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Auth", "MongoDB"],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS","Supabase/PostgreSQL", "Auth"],
     link: "https://coderslog.vercel.app",
     gradient: "from-blue-500/15 via-indigo-500/10 to-violet-500/10",
     iconBg: "from-blue-500/20 to-indigo-500/20",
