@@ -29,6 +29,28 @@ const projects = [
     borderGlow: "hover:border-emerald-500/30",
     shadow: "rgba(5,150,105,0.15)",
   },
+  {
+    title: "Coder's Log",
+    description:
+      "A full-stack blog platform with user authentication, CRUD operations, and a clean reading experience. Built for developers to share knowledge and insights.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Auth", "MongoDB"],
+    link: "https://coderslog.vercel.app",
+    gradient: "from-blue-500/15 via-indigo-500/10 to-violet-500/10",
+    iconBg: "from-blue-500/20 to-indigo-500/20",
+    borderGlow: "hover:border-blue-500/30",
+    shadow: "rgba(59,130,246,0.15)",
+  },
+  {
+    title: "OmniCalc",
+    description:
+      "A powerful multi-mode calculator with Standard, Scientific, Financial, Programmer, Graphing, Matrix, and Unit Converter modes. Feature-packed with OCR support.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    link: "https://calculator-smoky-eight-57.vercel.app",
+    gradient: "from-purple-500/15 via-pink-500/10 to-rose-500/10",
+    iconBg: "from-purple-500/20 to-pink-500/20",
+    borderGlow: "hover:border-purple-500/30",
+    shadow: "rgba(168,85,247,0.15)",
+  },
 ];
 
 export default function Projects() {
@@ -80,7 +102,7 @@ export default function Projects() {
         </div>
 
         <ScrollAnimations>
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {projects.map((project, idx) => {
               const bookmarked = isBookmarked(project.title);
               return (
