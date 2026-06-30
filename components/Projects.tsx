@@ -44,7 +44,7 @@ const projects = [
     title: "OmniCalc",
     description:
       "A powerful multi-mode calculator with Standard, Scientific, Financial, Programmer, Graphing, Matrix, and Unit Converter modes. Feature-packed with OCR support.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS","Supabase/PostgreSQL", "Vercel"],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
     link: "https://calculator-smoky-eight-57.vercel.app",
     gradient: "from-purple-500/15 via-pink-500/10 to-rose-500/10",
     iconBg: "from-purple-500/20 to-pink-500/20",
